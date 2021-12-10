@@ -1,19 +1,25 @@
-let scl = 20;
+let scl = 40;
 let snake;
 function setup() {
-  frameRate(2);
-  createCanvas(400, 400);
+  frameRate(10);
+  createCanvas(800, 800);
   snake = new Snake(scl, scl);
   food = new Food();
+  food.update(snake);
 }
 
 function draw() {
   background(51);
   drawLines();
-  food.update();
+
   food.show();
   snake.update();
   snake.show();
+  if (snake.tail[0].x == food.pos.x && snake.tail[0].y == food.pos.y) {
+    snake.createpart();
+    snake.total++;
+    food.update(snake);
+  }
 }
 
 function drawLines() {
